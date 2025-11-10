@@ -1,7 +1,7 @@
 MAKEFLAGS += -r
 .PHONY: all clean
 .SUFFIXES: .c .o .d
-SRC := $(shell find . -name '*.c')
+SRC := $(shell find . -type f -name '*.c')
 OBJ := $(patsubst %.c, %.o, $(SRC))
 DEP := $(patsubst %.c, %.d, $(SRC))
 
