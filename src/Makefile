@@ -1,12 +1,12 @@
 MAKEFLAGS += -r
 .PHONY: all clean
 .SUFFIXES: .c .o .d
-SRC := $(wildcard *.c)
+SRC := $(shell find . -name '*.c')
 OBJ := $(patsubst %.c, %.o, $(SRC))
 DEP := $(patsubst %.c, %.d, $(SRC))
 
 CFLAGS ?= -O2 -fno-plt -pipe -flto=auto
-CFLAGS += -fms-extensions -Wall -Wvla -pthread
+CFLAGS += -fms-extensions -Wall -Wvla -pthread -I$(CURDIR)
 LDFLAGS ?= -Wl,-O1
 LDLIBS += -lpthread
 
@@ -18,7 +18,7 @@ libcaster.a: $(OBJ)
 libcaster.so: $(OBJ)
 	$(LINK.o) -shared $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-.c.o:
+%.o: %.c
 	$(COMPILE.c) -fPIC $< -o $@
 
 clean:
