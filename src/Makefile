@@ -6,7 +6,7 @@ OBJ := $(patsubst %.c, %.o, $(SRC))
 DEP := $(patsubst %.c, %.d, $(SRC))
 
 CFLAGS ?= -O2 -fno-plt -pipe -flto=auto
-CFLAGS += -Wall -Wvla -pthread
+CFLAGS += -fms-extensions -Wall -Wvla -pthread
 LDFLAGS ?= -Wl,-O1
 LDLIBS += -lpthread
 
