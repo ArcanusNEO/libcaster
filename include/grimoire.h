@@ -91,8 +91,8 @@ struct epool;
 
 union endex
 {
+  int ident;
   void *ptr;
-  long ident;
 
   long long idata;
   unsigned long long udata;
