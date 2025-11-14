@@ -1,17 +1,15 @@
 #include "epool.h"
 
-#if (EPOOL_BACKEND + 0) == 1 || !defined EPOOL_BACKEND && defined __linux__
+#if (EPOOL_DRIVER + 0) == 0
+#warning epool: Function not implemented
+#elif (EPOOL_DRIVER + 0) < 0
+#warning epool: Unknown platform
+#elif (EPOOL_DRIVER + 0) == 1
 #include "epoll.inc"
-#elif (EPOOL_BACKEND + 0) == 2                                                \
-    || !defined EPOOL_BACKEND                                                 \
-           && (defined __FreeBSD__ || defined __NetBSD__                      \
-               || defined __OpenBSD__ || defined __DragonFly__                \
-               || defined __APPLE__)
+#elif (EPOOL_DRIVER + 0) == 2
 #include "kqueue.inc"
-#elif (EPOOL_BACKEND + 0) == 3 || !defined EPOOL_BACKEND && defined _WIN32
-#error Unsupported platform
-#elif (EPOOL_BACKEND + 0) == 4 || !defined EPOOL_BACKEND && defined __sun
-#error Unsupported platform
-#else
-#error Unknown platform
+#elif (EPOOL_DRIVER + 0) == 3
+/* Reserved for Windows */
+#elif (EPOOL_DRIVER + 0) == 4
+/* Reserved for Solaris */
 #endif

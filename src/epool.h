@@ -3,6 +3,42 @@
 #define _H_EPOOL_ 1
 #include "cmacs.h"
 
+#if (EPOOL_DRIVER + 0) == 1 || !defined EPOOL_DRIVER && defined __linux__
+#undef EPOOL_DRIVER
+#define EPOOL_DRIVER 1
+
+#include <sys/epoll.h>
+#define EPFILT_READ EPOLLIN
+#define EPFILT_WRITE EPOLLOUT
+
+#elif (EPOOL_DRIVER + 0) == 2                                                 \
+    || !defined EPOOL_DRIVER                                                  \
+           && (defined __FreeBSD__ || defined __NetBSD__                      \
+               || defined __OpenBSD__ || defined __DragonFly__                \
+               || defined __APPLE__)
+#undef EPOOL_DRIVER
+#define EPOOL_DRIVER 2
+
+#include <sys/event.h>
+#define EPFILT_READ EVFILT_READ
+#define EPFILT_WRITE EVFILT_WRITE
+
+#elif (EPOOL_DRIVER + 0) == 3 || !defined EPOOL_DRIVER && defined _WIN32
+#undef EPOOL_DRIVER
+#define EPOOL_DRIVER 0
+
+#elif (EPOOL_DRIVER + 0) == 4 || !defined EPOOL_DRIVER && defined __sun
+#undef EPOOL_DRIVER
+#define EPOOL_DRIVER 0
+
+#else
+#undef EPOOL_DRIVER
+#define EPOOL_DRIVER -1
+
+#endif
+
+#if (EPOOL_DRIVER + 0) > 0
+
 struct epool;
 
 union endex
@@ -71,24 +107,6 @@ efinally (struct epost *epost)
   return $fn (epool, efinally) (*(void **)epost, epost);
 }
 
-#if (EPOOL_BACKEND + 0) == 1 || !defined EPOOL_BACKEND && defined __linux__
-#include <sys/epoll.h>
-#define EPFILT_READ EPOLLIN
-#define EPFILT_WRITE EPOLLOUT
-#elif (EPOOL_BACKEND + 0) == 2                                                \
-    || !defined EPOOL_BACKEND                                                 \
-           && (defined __FreeBSD__ || defined __NetBSD__                      \
-               || defined __OpenBSD__ || defined __DragonFly__                \
-               || defined __APPLE__)
-#include <sys/event.h>
-#define EPFILT_READ EVFILT_READ
-#define EPFILT_WRITE EVFILT_WRITE
-#elif (EPOOL_BACKEND + 0) == 3 || !defined EPOOL_BACKEND && defined _WIN32
-#error Unsupported platform
-#elif (EPOOL_BACKEND + 0) == 4 || !defined EPOOL_BACKEND && defined __sun
-#error Unsupported platform
-#else
-#error Unknown platform
 #endif
 
 #endif /* _H_EPOOL_ */
