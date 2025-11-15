@@ -22,12 +22,12 @@ extern pthread_mutex_t logger_error_lock;
 #define log_error(...)                                                        \
   do                                                                          \
     {                                                                         \
-      pthread_mutex_lock (logger_error_lock);                                 \
+      pthread_mutex_lock (&logger_error_lock);                                \
       puts (__FILE__ ":", stderr);                                            \
       puts (__func__, stderr);                                                \
       puts (":" quote$ (__LINE__) ": ", stderr);                              \
       cerr (__VA_ARGS__);                                                     \
-      pthread_mutex_unlock (logger_error_lock);                               \
+      pthread_mutex_unlock (&logger_error_lock);                              \
     }                                                                         \
   while (0)
 
