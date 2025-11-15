@@ -4,6 +4,7 @@
 
 #include <cmacs.h>
 #include <pthread.h>
+#include <unistd.h>
 
 /****************************** blocking deque *******************************/
 
@@ -241,5 +242,14 @@ extern pthread_mutex_t logger_error_lock;
   while (0)
 
 /********************************** logger ***********************************/
+
+/************************************ sys ************************************/
+
+unsigned nproc ();
+
+void *static$ (close) (void *);
+#define autofd defer$ (static$ (close))
+
+/************************************ sys ************************************/
 
 #endif /* _H_GRIMOIRE_ */
