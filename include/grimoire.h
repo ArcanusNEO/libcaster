@@ -252,4 +252,22 @@ void *static$ (close) (void *);
 
 /************************************ sys ************************************/
 
+/********************************* binstore **********************************/
+
+struct binstore
+{
+  union
+  {
+    struct
+    {
+      usz capacity;
+      byte *store;
+    };
+    byte embed[sizeof (usz) + sizeof (byte *)];
+  };
+  usz size;
+};
+
+/********************************* binstore **********************************/
+
 #endif /* _H_GRIMOIRE_ */
