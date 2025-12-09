@@ -23,7 +23,7 @@ mutex_unlock_wrapper (void *mutex)
       pthread_testcancel ();                                                  \
     while (unlikely (pthread_mutex_lock (&this->mbr$ (lock))));               \
     pthread_cleanup_push (mutex_unlock_wrapper, &this->mbr$ (lock));          \
-    while (this->mbr$ (head) == null && this->mbr$ (tail) == null)            \
+    while (!this->mbr$ (head) && !this->mbr$ (tail))                          \
       pthread_cond_wait (&this->mbr$ (cond), &this->mbr$ (lock));             \
     ret = list$ (op) (&this->mbr$ (head), &this->mbr$ (tail));                \
     pthread_cleanup_pop (1);                                                  \

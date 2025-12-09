@@ -3,7 +3,7 @@
 void *
 static$ (close) (void *pfd)
 {
-  if (pfd == null || *(int *)pfd < 0)
+  if (!pfd || *(int *)pfd < 0)
     return null;
   close (*(int *)pfd);
   return pfd;
