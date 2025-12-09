@@ -5,16 +5,11 @@
 
 struct binstore
 {
-  union
-  {
-    struct
-    {
-      usz capacity;
-      byte *store;
-    };
-    byte embed[sizeof (usz) + sizeof (byte *)];
-  };
   usz size;
+  usz capacity;
+  byte store[0];
 };
+
+struct binstore *$fx (binstore, resize, usz size);
 
 #endif /* _H_BINSTORE_ */
