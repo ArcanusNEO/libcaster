@@ -3,8 +3,20 @@
 struct binstore *
 $fx (binstore, resize, usz size)
 {
+  if (!this)
+    {
+      auto capacity = dynarr$ (0, size);
+      this = malloc (sizeof (struct binstore) + capacity);
+      if (unlikely (!this))
+        return null;
+      this->capacity = capacity;
+      this->size = size;
+      return this;
+    }
+
   if (size == this->size)
     return this;
+
   auto capacity = dynarr$ (this->capacity, size);
   if (capacity != this->capacity)
     {
