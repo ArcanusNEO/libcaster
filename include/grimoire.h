@@ -254,12 +254,12 @@ void *static$ (close) (void *);
 
 /********************************* binstore **********************************/
 
-struct binstore
+typedef struct binstore
 {
   usz size;
   usz capacity;
   byte store[0];
-};
+} bsto;
 
 struct binstore *$fx (binstore, resize, usz size);
 

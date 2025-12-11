@@ -3,12 +3,12 @@
 #define _H_BINSTORE_ 1
 #include "cmacs.h"
 
-struct binstore
+typedef struct binstore
 {
   usz size;
   usz capacity;
   byte store[0];
-};
+} bsto;
 
 struct binstore *$fx (binstore, resize, usz size);
 
