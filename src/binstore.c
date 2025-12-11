@@ -14,9 +14,6 @@ $fx (binstore, resize, usz size)
       return this;
     }
 
-  if (size == this->size)
-    return this;
-
   auto capacity = dynarr$ (this->capacity, size);
   if (capacity != this->capacity)
     {
