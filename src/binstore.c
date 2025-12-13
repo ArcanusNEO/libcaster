@@ -24,8 +24,8 @@ $fx (binstore, resize, usz size)
           this->size = min (size, this->capacity);
           return this;
         }
-      this = that;
       that->capacity = capacity;
+      this = that;
     }
   this->size = size;
   return this;
